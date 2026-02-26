@@ -50,3 +50,4 @@ EU-01 cluster-compatible endpoint structure
 
 Demonstrates how P&G could fully automate Braze Canvas creation
 
+Role: contributor
