@@ -43,6 +43,7 @@ GET /api/hypercare/:id → returns metrics + AI insights
 
 Braze Integration
 
+Role: contributor
 Mock Braze client following real REST API schema
 
 EU-01 cluster-compatible endpoint structure
