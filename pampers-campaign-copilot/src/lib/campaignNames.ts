@@ -1,0 +1,78 @@
+/**
+ * Converts technical campaign names to user-friendly display names with emojis
+ */
+
+export const getFriendlyCampaignName = (campaignName: string): string => {
+  // Extract theme and markets from campaign name
+  const parts = campaignName.split("_");
+  const theme = parts[0];
+  const markets = parts.slice(1);
+
+  // Map themes to friendly names and emojis
+  const themeMap: { [key: string]: { name: string; emoji: string } } = {
+    XMAS: { name: "Christmas", emoji: "🎄" },
+    NEW_YEAR: { name: "New Year's", emoji: "🎉" },
+    RAF: { name: "Refer-a-Friend", emoji: "👥" },
+    WELCOME: { name: "Welcome", emoji: "👋" },
+    BIRTHDAY: { name: "Birthday", emoji: "🎂" },
+    EASTER: { name: "Easter", emoji: "🐰" },
+    VALENTINE: { name: "Valentine's Day", emoji: "💝" },
+    SUMMER: { name: "Summer", emoji: "☀️" },
+    WINTER: { name: "Winter", emoji: "❄️" },
+    Generic: { name: "Campaign", emoji: "📢" },
+  };
+
+  // Get theme info or default
+  const themeInfo = themeMap[theme] || { name: theme, emoji: "📢" };
+
+  // Format markets - supporting 20+ countries
+  const marketNames: { [key: string]: string } = {
+    US: "United States", UK: "United Kingdom", AU: "Australia", NZ: "New Zealand", ZA: "South Africa",
+    DE: "Germany", AT: "Austria", CH: "Switzerland",
+    ES: "Spain", MX: "Mexico", AR: "Argentina",
+    FR: "France", BE: "Belgium",
+    IT: "Italy",
+    NL: "Netherlands",
+    PL: "Poland",
+    CZ: "Czech Republic",
+    PT: "Portugal", BR: "Brazil",
+    GR: "Greece",
+    TR: "Turkey",
+    RU: "Russia",
+    JP: "Japan",
+    CN: "China",
+    IN: "India",
+  };
+
+  const friendlyMarkets = markets
+    .map((m) => marketNames[m] || m)
+    .join(", ");
+
+  // Build friendly name
+  if (markets.length > 0) {
+    return `${themeInfo.emoji} ${themeInfo.name} - ${friendlyMarkets}`;
+  }
+  return `${themeInfo.emoji} ${themeInfo.name} Campaign`;
+};
+
+/**
+ * Gets a friendly description for the campaign type
+ */
+export const getFriendlyCampaignType = (
+  campaignType: "promotional" | "non-promotional"
+): string => {
+  return campaignType === "promotional" ? "Promotional" : "Informational";
+};
+
+/**
+ * Gets a friendly description for the campaign duration
+ */
+export const getFriendlyDuration = (duration: string): string => {
+  const durationMap: { [key: string]: string } = {
+    always_on: "Always On",
+    limited: "Limited Time",
+    one_time: "One-Time",
+  };
+  return durationMap[duration] || duration;
+};
+
